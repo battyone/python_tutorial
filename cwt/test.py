@@ -6,11 +6,13 @@
 
 
 def bitgen(x):
+    """ bit generator - creates an integer (0 or 1) representing each bit of x."""
     for c in x:
         for i in range(8):
             yield int((c & (0x80 >> i)) != 0)
 
 
+# printing
 print(bin(0x3C6D))
 enw6 = open("enwik6", "rb").read()
 # print(enw6[0:100])

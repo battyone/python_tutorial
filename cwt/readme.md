@@ -11,7 +11,7 @@ stationary means that a distribution doesn't change over time
 
 [6:20] Wikipedia is a non-stationary distribution.
 
-[13:!2]
+[13:12] Arithmetic Coding (Huffman Coding)
 
 # Links
 
