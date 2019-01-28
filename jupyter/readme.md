@@ -1,0 +1,1 @@
+Start with `jupyter notbook` on command line.
