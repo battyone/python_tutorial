@@ -1,10 +1,39 @@
+pip install flask
 pip install flask-wtf
 pip install flask-sqlalchemy
 
+# Flask
+
+http://flask.pocoo.org/
+
+# Start app
+
+```
+set FLASK_APP=flaskblog.py
+set FLASK_DEBUG=1 <----- to run changes without restarting the web server
+flask run
+
+or
+
+# python run.py
+```
+
+URL: http://localhost:5000/
+
+# Create secret
+
+https://stackoverflow.com/questions/22463939/demystify-flask-app-secret-key
+
+```
+# in python interpreter
+import secrets
+secrets.token_hex(16)
+```
 
 # Create Database
 
 In python interpreter
+
 ```
 from flaskblog import db
 
