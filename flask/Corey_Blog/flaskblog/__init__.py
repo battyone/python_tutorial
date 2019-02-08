@@ -1,7 +1,7 @@
 
 # init app and components
 
-from flaskblog import routes
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -18,3 +18,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 ##############
 # Create db
 db = SQLAlchemy(app)
+
+# has to be at the end!!!
+from flaskblog import routes
