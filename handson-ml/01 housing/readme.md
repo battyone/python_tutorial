@@ -49,3 +49,7 @@ sklearn has a function to split a data set into train and test. The random_state
 from sklearn.model_selection import train_test_split
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 ```
+
+### Stratified Sampling
+
+Select a representative test set which contains all different kinds of the attribute "median income".
