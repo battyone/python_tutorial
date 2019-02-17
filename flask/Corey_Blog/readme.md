@@ -100,3 +100,15 @@ bcrypt.generate_password_hash('testing').decode('utf-8')
 bcrypt.check_password_hash(hash_pw, 'testing')
 True
 ```
+
+# Errors
+
+TypeError: 'DataRequired' object is not iterable
+
+https://stackoverflow.com/questions/22310366/typeerror-required-object-is-not-iterable-flask-wtf-forms
+
+## Not using _data_ in form.title.data
+
+```
+Error binding parameter 0 - probably unsupported type. [SQL: 'INSERT INTO post (title, date_posted, content, user_id) VALUES (?, ?, ?, ?)'] [parameters: (<wtforms.fields.core.StringField object at 0x000001433F86CF28>, '2019-02-17 18:50:43.246248', <wtforms.fields.simple.TextAreaField object at 0x000001433F86C908>, 1)]
+```
