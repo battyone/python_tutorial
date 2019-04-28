@@ -1,6 +1,7 @@
 pip install flask
 pip install flask-wtf
 pip install flask-sqlalchemy
+pip install Pillow # to resize images
 
 https://flask-bcrypt.readthedocs.io/en/latest/
 pip install flask-bcrypt

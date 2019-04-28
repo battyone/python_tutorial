@@ -24,4 +24,14 @@ class Vector:
     def __mul__(self, scalar):
         return Vector(self.x * scalar, self.y * scalar)
 
+    def __repr__(self):
+        return f"x:{self.x}; y:{self.y}"
 
+
+def run_test():
+    v = Vector(23, 89)
+    print(v)
+
+
+if __name__ == "__main__":
+    run_test()
