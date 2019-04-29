@@ -43,3 +43,17 @@ A generator expression feeds a for loop one at a time.
 ## Slicing
 
 Python defines `seq[start:stop:step]` as `seq.__getitem__(slice(start, stop, step))`
+
+## queue
+
+The `queue` package includes thread-safe classes `Queue`, `LifoQueue`, and `PriorityQueue`. They don't discard items to make room as `deque` does. Instead, when the queue is full the insertion of a new item blocks, i.e. it waits until some other thread makes room. This is useful to throttle the number of live threads.
+
+# Chapter 3 - Dictionaries and Sets
+
+`collections.defaultdict`
+
+`collections.OrderedDict` - maintains the keys in insertion order. For looping in predictable fashion.
+
+`collections.ChainMap` - see dict.py
+
+`collections.Counter` - see dict.py

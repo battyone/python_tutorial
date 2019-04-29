@@ -1,5 +1,6 @@
 import bisect
 import sys
+import random
 
 HAYSTACK = [1, 4, 5, 6, 8, 12, 15, 20, 21, 23, 23, 26, 29, 30]
 NEEDLES = [0, 1, 2, 5, 8, 10, 22, 23, 29, 30, 31]
@@ -45,5 +46,16 @@ def run_test_grades():
     [grade(score) for score in [33, 99, 77, 70, 89, 90, 100]]
 
 
+def run_test_insort():
+    """Create a sorted list from random values"""
+    random.seed(1)
+
+    l = []
+    for i in range(10):
+        item = random.randrange(88)
+        bisect.insort(l, item)
+        print(f"{item} {l}")
+
+
 if __name__ == "__main__":
-    run_test_grades()
+    run_test_insort()
