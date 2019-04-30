@@ -58,8 +58,8 @@ def run_test():
     delphi = City._make(delphi_data)
     print(delphi._asdict())
 
-    ### appending to tuples is inefficient
-    t = (1,2,3)
+    # appending to tuples is inefficient
+    t = (1, 2, 3)
     print(t)
     print(id(t))
 
@@ -67,7 +67,6 @@ def run_test():
     t *= 2
     print(t)
     print(id(t))
-
 
 
 if __name__ == "__main__":
