@@ -14,3 +14,5 @@ s2 = s1.translate(translation)
 print(s2)
 
 # http://www.pythonchallenge.com/pc/def/ocr.html
+
+
