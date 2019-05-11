@@ -15,4 +15,7 @@ print(s2)
 
 # http://www.pythonchallenge.com/pc/def/ocr.html
 
-
+#%%
+# f string format
+f = 13.45678983762
+print(f'{f:.3f}')

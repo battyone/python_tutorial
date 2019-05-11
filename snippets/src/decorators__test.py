@@ -1,4 +1,8 @@
 # %%
+import time
+
+
+# %%
 
 
 def deco(func):
@@ -53,3 +57,33 @@ def main():
 
 
 main()
+
+# %%
+
+
+def clock(func):
+
+    # inner function which accepts any number of positional arguments
+    def clocked(*args):
+        t0 = time.perf_counter()
+
+        result = func(*args)
+
+        elapsed = time.perf_counter() - t0
+
+        name = func.__name__
+        arg_str = ','.join(repr(a) for a in args)
+        print(f'{elapsed:.8f} {name}({arg_str}) -> {result}')
+
+        return result
+    return clocked
+
+
+@clock
+def snooze(seconds):
+    time.sleep(seconds)
+
+
+print('*' * 40, '\ncalling snooze')
+snooze(0.5)
+print('*' * 40)
