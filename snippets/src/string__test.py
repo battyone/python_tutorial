@@ -1,4 +1,7 @@
 # %%
+from datetime import datetime
+
+# %%
 
 alphabet = ''.join([chr(c) for c in range(ord('a'), ord('z')+1)])
 shifted = alphabet[2:] + alphabet[:2]
@@ -15,7 +18,20 @@ print(s2)
 
 # http://www.pythonchallenge.com/pc/def/ocr.html
 
-#%%
+# %%
 # f string format
 f = 13.45678983762
 print(f'{f:.3f}')
+
+# %%
+a = 42
+# print binary
+print(f'{a:b}')
+
+# print percent
+print(f'{2/3:.1%}')
+
+# %%
+now = datetime.now()
+print(f'{now:%H:%M:%S}')
+print(f'It is now {now:%I:%M %p}')

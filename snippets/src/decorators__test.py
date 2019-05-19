@@ -1,6 +1,7 @@
+
 # %%
 import time
-
+import functools
 
 # %%
 
@@ -84,6 +85,70 @@ def snooze(seconds):
     time.sleep(seconds)
 
 
+@clock
+def factorial(n):
+    return 1 if n < 2 else n * factorial(n-1)
+
+
+# %%
 print('*' * 40, '\ncalling snooze')
 snooze(0.5)
 print('*' * 40)
+print('*' * 40, '\ncalling factorial')
+factorial(80)
+print('*' * 40)
+
+
+##################
+# clock decorator v2
+#################
+
+# %%
+def clock_v2(func):
+
+    # add support for keyword arguments
+    @functools.wraps(func)
+    def clocked(*args, **kwargs):
+        t0 = time.time()
+        result = func(*args, **kwargs)
+        elapsed = time.time() - t0
+
+        name = func.__name__
+
+        arg_lst = []
+        if args:
+            arg_lst.append(', '.join(repr(a) for a in args))
+        if kwargs:
+            pairs = [f'{k}={v}' for k, v in sorted(kwargs.items())]
+            arg_lst.append(', '.join(pairs))
+
+        arg_str = ', '.join(arg_lst)
+
+        print(f'{elapsed:.8f} {name}({arg_str}) -> {result} ')
+
+        return result
+    return clocked
+
+# %%
+@clock_v2
+def fibonacci_v2(n):
+    if n < 2:
+        return n
+    return fibonacci_v2(n-2) + fibonacci_v2(n-1)
+
+
+@functools.lru_cache()
+@clock_v2
+def fibonacci_v3(n):
+    if n < 2:
+        return n
+    return fibonacci_v3(n-2) + fibonacci_v3(n-1)
+
+
+# %%
+# fibonacci(1) is called a lot of times...
+print(fibonacci_v2(6))
+
+# %%
+# fibonacci(1) is called one time!
+print(fibonacci_v3(6))

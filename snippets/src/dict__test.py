@@ -139,3 +139,28 @@ a['hello'] = 9
 print(a)
 a[3] = 99
 print(a)
+
+#%%
+# create a dict
+charles = {'name': 'Charles L. Dodgson', 'born': 1832}
+
+lewis = charles
+print(lewis is charles)
+
+print(id(lewis), id(charles))
+
+lewis['balance'] = 950
+
+# still true and charles now also has a 'balance'
+print(lewis is charles)
+
+print(charles)
+
+
+alex = {'name': 'Charles L. Dodgson', 'born': 1832, 'balance': 950}
+
+print(charles == alex) # the same content (comparing the values)
+print(charles is alex) # not the same object (comparing ids)
+
+
+
