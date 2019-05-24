@@ -35,3 +35,9 @@ print(f'{2/3:.1%}')
 now = datetime.now()
 print(f'{now:%H:%M:%S}')
 print(f'It is now {now:%I:%M %p}')
+
+# %%
+# multiline
+c.execute('''CREATE TABLE stocks
+             (date text, trans text, symbol text, qty real, price real)
+            ''')

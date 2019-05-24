@@ -114,6 +114,7 @@ print(a.most_common(2))
 
 a = Tra
 
+
 class StrKeyDict(collections.UserDict):
 
     # called by __getitem__ whenever a key is not found, instead of raising KeyError
@@ -140,7 +141,7 @@ print(a)
 a[3] = 99
 print(a)
 
-#%%
+# %%
 # create a dict
 charles = {'name': 'Charles L. Dodgson', 'born': 1832}
 
@@ -159,8 +160,12 @@ print(charles)
 
 alex = {'name': 'Charles L. Dodgson', 'born': 1832, 'balance': 950}
 
-print(charles == alex) # the same content (comparing the values)
-print(charles is alex) # not the same object (comparing ids)
+print(charles == alex)  # the same content (comparing the values)
+print(charles is alex)  # not the same object (comparing ids)
 
 
-
+# %%
+# check for a key
+charles = {'name': 'Charles L. Dodgson', 'born': 1832}
+if 'name' in charles:
+    print('charles has a name')
