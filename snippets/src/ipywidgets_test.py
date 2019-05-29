@@ -13,3 +13,4 @@ a = widgets.IntSlider(
 )
 
 display(a)
+
