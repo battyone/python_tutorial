@@ -24,6 +24,8 @@ class FrenchDeck:
         return self._cards[pos]
 
 
+
+
 # %%
 # this will fail, see below
 deck = FrenchDeck()
@@ -31,6 +33,14 @@ shuffle(deck)
 
 
 # %%
-# Monkey Patching FrenchDeck to allow for shuffling
+# Monkey Patching FrenchDeck to allow for shuffling (pg, 325)
 def set_card(deck, position, card):
     deck._cards[position] = card
+
+FrenchDeck.__setitem__ = set_card
+
+new_deck = FrenchDeck()
+shuffle(new_deck)
+print(new_deck[:5])
+
+#%%
