@@ -1,4 +1,8 @@
+
+# %%
+
 import collections
+from random import shuffle
 
 
 Card = collections.namedtuple("Card", ["rank", "suit"])
@@ -19,8 +23,14 @@ class FrenchDeck:
     def __getitem__(self, pos):
         return self._cards[pos]
 
-def Test():
-    # dfdfd
-    pass
 
-    
+# %%
+# this will fail, see below
+deck = FrenchDeck()
+shuffle(deck)
+
+
+# %%
+# Monkey Patching FrenchDeck to allow for shuffling
+def set_card(deck, position, card):
+    deck._cards[position] = card

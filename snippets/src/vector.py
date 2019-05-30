@@ -93,8 +93,8 @@ print(a.x)
 print(hash(a))
 print(hash(b))
 
-#%%
-a = Vector(1.3,2.99)
+# %%
+a = Vector(1.3, 2.99)
 print(hash(a))
 print(hash(float(33.1)))
 
@@ -103,4 +103,3 @@ print(octets)
 b = Vector.frombytes(octets)
 print(a)
 print(b)
-

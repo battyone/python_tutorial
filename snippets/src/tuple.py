@@ -71,3 +71,13 @@ def run_test():
 
 if __name__ == "__main__":
     run_test()
+
+# %%
+# compare to tuple for equality
+t1 = (1, 3, 4, 'Hello')
+t2 = (1, 3, 4, 'Hello')
+eq = len(t1) == len(t2) and all(a == b for a, b in zip(t1, t2))
+print(eq)
+
+
+# %%
