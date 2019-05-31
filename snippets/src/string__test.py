@@ -41,3 +41,10 @@ print(f'It is now {now:%I:%M %p}')
 c.execute('''CREATE TABLE stocks
              (date text, trans text, symbol text, qty real, price real)
             ''')
+
+# %%
+# Center the string around a bunch of 'o's
+print(f'Hello World'.center(50, 'o', ))
+
+
+# %%
