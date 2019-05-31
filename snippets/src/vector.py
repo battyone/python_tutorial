@@ -51,7 +51,29 @@ class Vector:
     def __mul__(self, scalar):
         return Vector(self.x * scalar, self.y * scalar)
 
+    def __matmul__(self, other):
+        try:
+            return sum(a*b for a, b in zip(self, other))
+        except TypeError:
+            raise NotImplemented
+
+    def __rmatmul__(self, other):
+        return self @ other
+
+    ###########
+    # Unary operators
+
+    def __neg__(self):
+        return Vector(-x for x in self)
+
+    def __pos__(self):
+        return Vector(self)
+
+    ###########
+    # Convert to string
+
     # what a developer wants to see
+
     def __repr__(self):
         return f"x:{self.x}; y:{self.y}"
 
@@ -62,6 +84,9 @@ class Vector:
     def __format__(self, fmt_spec=''):
         components = (format(c, fmt_spec) for c in self)
         return '({} {})'.format(*components)
+
+    ###########
+    # Convert to bytes
 
     def __bytes__(self):
         return (bytes([ord(self.typecode)]) +
@@ -103,3 +128,12 @@ print(octets)
 b = Vector.frombytes(octets)
 print(a)
 print(b)
+
+
+print('Dot product')
+a = Vector(1.3, 2.99)
+a = Vector(8, 5)
+print(a @ b)
+
+
+# %%
