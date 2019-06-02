@@ -65,3 +65,5 @@ When scanning datasets that don't fit in memory, we need a way to fetch the item
 The `yield` keyword allows the construction of generators, which work as iterators.
 
 Every generator is an iterator, which fully implements the iterator interface.
+
+The classic Iterator pattern is all about traversal: navigating some data structure.
