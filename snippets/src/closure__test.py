@@ -3,6 +3,8 @@
 # function but not defined there.
 #
 
+# A closure remembers the values from its enclosing lexical scope even when the program flow is no longer in that scope.
+
 # %%
 
 # a class to calculate

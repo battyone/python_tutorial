@@ -163,9 +163,24 @@ alex = {'name': 'Charles L. Dodgson', 'born': 1832, 'balance': 950}
 print(charles == alex)  # the same content (comparing the values)
 print(charles is alex)  # not the same object (comparing ids)
 
-
 # %%
 # check for a key
 charles = {'name': 'Charles L. Dodgson', 'born': 1832}
 if 'name' in charles:
     print('charles has a name')
+
+
+#%%
+# simulate a switch statement with a dict
+
+def say_hello():
+    print('hello')
+
+
+def say_bye():
+    print('bye')
+
+
+d = {'a': say_hello, 'b': say_hello, 'c': lambda: print('lambda')}
+s = 'c'
+d[s]()

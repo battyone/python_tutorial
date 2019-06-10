@@ -67,3 +67,7 @@ The `yield` keyword allows the construction of generators, which work as iterato
 Every generator is an iterator, which fully implements the iterator interface.
 
 The classic Iterator pattern is all about traversal: navigating some data structure.
+
+# Chapter 15
+
+A `with` block doesn't define a scope unlike a function. Hence, variables declared inside a `with` block can be used outside.
