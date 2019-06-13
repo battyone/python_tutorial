@@ -58,8 +58,6 @@ def average_0():
     average = 0
 
     while True:
-
-        # when send(x) is called `term` will be assigned to x and returned will be `average`
         term = yield average
         total = term
         count += 1
@@ -182,3 +180,6 @@ data = {
 
 if __name__ == "__main__":
     main(data)
+
+
+# %%
