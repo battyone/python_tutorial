@@ -118,7 +118,7 @@ def node_to_path(node: Node[T]) -> List[T]:
     return path
 
 
-if __name__ == "__main__":
-    print(linear_search([1, 5, 15, 20], 5))
-    print(binary_search(['a', 'd', 'e', 'f', 'z'], 'f'))
-    print(binary_search(['john', 'mark', 'ronald', 'sarah'], 'sheila'))
+# if __name__ == "__main__":
+#     print(linear_search([1, 5, 15, 20], 5))
+#     print(binary_search(['a', 'd', 'e', 'f', 'z'], 'f'))
+#     print(binary_search(['john', 'mark', 'ronald', 'sarah'], 'sheila'))
