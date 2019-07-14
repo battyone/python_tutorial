@@ -101,16 +101,27 @@ class Maze:
 
 # %%
 if __name__ == "__main__":
-    m: Maze = Maze(30, 30, 0.25, MazeLocation(0, 0), MazeLocation(29, 29))
+    m: Maze = Maze(5, 5, 0.2, MazeLocation(0, 0), MazeLocation(4, 4))
     print(m)
 
-    solution1: Optional[gs.Node[MazeLocation]] = gs.dfs(m.start, m.goal_test,
+    # solution1: Optional[gs.Node[MazeLocation]] = gs.dfs(m.start, m.goal_test,
+    #                                                     m.successors)
+
+    # if solution1 is None:
+    #     print('No DFS solution found')
+    # else:
+    #     path1: List[MazeLocation] = gs.node_to_path(solution1)
+    #     m.mark(path1)
+    #     print(m)
+    #     m.clear(path1)
+
+    solution2: Optional[gs.Node[MazeLocation]] = gs.bfs(m.start, m.goal_test,
                                                         m.successors)
 
-    if solution1 is None:
-        print('No solution found')
+    if solution2 is None:
+        print('No BFS solution found')
     else:
-        path1: List[MazeLocation] = gs.node_to_path(solution1)
-        m.mark(path1)
+        path2: List[MazeLocation] = gs.node_to_path(solution2)
+        m.mark(path2)
         print(m)
-        m.clear(path1)
+        m.clear(path2)
