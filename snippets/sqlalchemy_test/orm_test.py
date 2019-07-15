@@ -2,6 +2,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -17,26 +18,28 @@ class User(Base):
     def __repr__(self):
         return f'''<User(name"{self.name}",
             fullname="{self.fullname}",
-            nickname="{self.nickname}"'''
+            nickname="{self.nickname}>"'''
 
+
+print(User.__tablename__)
 
 # echo flag is a shortcut to enable logging
 engine = create_engine('sqlite:///:memory:', echo=True)
 
+# generate the create table commands
+# Base.metadata.create_all(engine)
 
-def create_table(name, cols):
-    Base.metadata.reflect(engine)
-    if name in Base.metadata.tables:
-        return
+a_user = User(name='Katrin', fullname='Katrin Henning', nickname='bubi')
+# print(a_user.id)
 
-    table = type(name, (Base,), cols)
-    table.__table__.create(bind=engine)
+# %%
+Session = sessionmaker(bind=engine)
+session = Session()
 
-
-create_table('Table1', {
-             '__tablename__': 'Table1',
-             'id': Column(Integer, primary_key=True),
-             'name': Column(String)})
+# no SQL will be issued
+session.add(a_user)
 
 
-Base.metadata.create_all(engine)
+
+
+
