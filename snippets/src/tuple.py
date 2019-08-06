@@ -1,7 +1,37 @@
 import os
 from collections import namedtuple
 
+#%%
+t = ('hello', 'phone numbers', 1234, 1234, 9876)
 
+# use the star expression
+a, b, *c = t
+print(c)
+
+# b will only the middle values
+t = (1,2,4,5,6,7)
+a,*b,c = t
+print(b)
+
+#%%
+# a few records (tuples with varying length)
+def do_foo(*args):
+    print('foo', args)
+
+def do_bar(*args):
+    print('bar', args)
+
+records = [('foo', 4, 6, 7), ('bar', 4), ('foo', 1, 'g')]
+for tag, *args in records:
+    if tag == 'foo':
+        do_foo(args)
+    elif tag == 'bar':
+        do_bar(args)
+
+
+
+
+#%%
 def run_test():
     lax_coord = (33.9425, -118.408056)
 
@@ -68,9 +98,6 @@ def run_test():
     print(t)
     print(id(t))
 
-
-if __name__ == "__main__":
-    run_test()
 
 # %%
 # compare to tuple for equality
