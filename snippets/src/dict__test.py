@@ -1,6 +1,9 @@
 
 
 # %%
+import json
+from collections import OrderedDict
+from collections import defaultdict
 import re
 import sys
 import collections
@@ -112,8 +115,6 @@ print(a.most_common(2))
 
 # %%
 
-a = Tra
-
 
 class StrKeyDict(collections.UserDict):
 
@@ -170,7 +171,7 @@ if 'name' in charles:
     print('charles has a name')
 
 
-#%%
+# %%
 # simulate a switch statement with a dict
 
 def say_hello():
@@ -180,7 +181,37 @@ def say_hello():
 def say_bye():
     print('bye')
 
+def bla():
+    
+
 
 d = {'a': say_hello, 'b': say_hello, 'c': lambda: print('lambda')}
 s = 'c'
 d[s]()
+
+# %%
+# multidict
+
+a = defaultdict(list)
+a[1].append('Hello')
+a[2].append(2)
+print(a)
+
+a = defaultdict(set)
+a[1].add(1)
+a[1].add(1)
+a[2].add(2)
+print(a)
+
+# %%
+# order items in a dict
+from collections import OrderedDict
+import json
+
+d = OrderedDict()
+d['foo'] = 1
+d['bar'] = 2
+d['spam'] = 3
+d['grok'] = 4
+
+print(json.dumps(d))

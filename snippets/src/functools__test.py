@@ -70,6 +70,7 @@ print(htmlize([45, 'bla bla', 7.8]))
 
 # %%
 
+
 class TestClass:
     def __init__(self):
         self.some_value = 'Hello World'
@@ -78,8 +79,22 @@ class TestClass:
 @htmlize.register(TestClass)
 def _(tc):
     return ('<p>'
-        + 'TestClass: ' 
-        + html.escape(tc.some_value).replace('\n', '<\br>\n') + '</p>')
+            + 'TestClass: '
+            + html.escape(tc.some_value).replace('\n', '<\br>\n') + '</p>')
+
 
 tc = TestClass()
 print(htmlize(tc))
+
+
+# %%
+# Closure
+def bla(template):
+    def fill_in(**kwargs):
+        return template.format_map(kwargs)
+    return fill_in
+
+s = 'Hello {name} {lastname}.'
+f = bla(s)
+f(name='Christian', lastname='Henning')
+
