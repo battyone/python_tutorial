@@ -1,25 +1,40 @@
 # %%
+# Part 1: https://www.youtube.com/watch?v=UO98lJQ3QGI
 from matplotlib import pyplot as plt
 
 # %%
+<<<<<<< HEAD
+
+# see format string
+# doc: https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.plot.html
+=======
 print(plt.style.available)
 
 # %%
 # https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Matplotlib/01-Introduction/snippets.py
 # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.plot.html
+>>>>>>> a9bd10556e557386ea07479fc9b9cb3ce8525ae2
 
 ages_x = list(range(25, 36))
 dev_y = [38496, 42000, 46752, 49320, 53200,
          56000, 62316, 64928, 67317, 68748, 73752]
 
+<<<<<<< HEAD
+# use white dashed line with small markers
+# plt.plot(ages_x, dev_y, 'w--', label='All Dev')
+plt.plot(ages_x, dev_y, color='w', linestyle='--', marker='.', label='All Dev')
+=======
 plt.plot(ages_x, dev_y, color='#4444FF',
          linestyle='--', marker='', label='All Dev')
+>>>>>>> a9bd10556e557386ea07479fc9b9cb3ce8525ae2
 
 # Median Python Developer Salaries by Age
 py_dev_y = [45372, 48876, 53850, 57287, 63016,
             65998, 70003, 70000, 71496, 75370, 83640]
 
-plt.plot(ages_x, py_dev_y, label='Python')
+# use blue dotted line with big markers
+plt.plot(ages_x, py_dev_y, color='#00FFFF',
+         linestyle=':', marker='o', label='Python')
 
 # Median JavaScript Developer Salaries by Age
 js_dev_y = [37810, 43515, 46823, 49293, 53437,
