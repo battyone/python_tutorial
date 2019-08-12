@@ -63,3 +63,34 @@ class C(A,B):
 
 c = C()
 print(C.__mro__)
+
+
+#%%
+
+class Person:
+    def __init__(self, first_name):
+        #call to Setter
+        self.first_name = first_name
+
+    #Getter
+    @property
+    def first_name(self):
+        return self._first_name
+
+    #Setter
+    @first_name.setter
+    def first_name(self, name):
+        if not isinstance(name, str):
+            raise TypeError ('Expected a string')
+        print('setting first name')
+        self._first_name = name
+    
+    #Deleter 
+    @first_name.deleter
+    def first_name(self):
+        raise AttributeError("Can't delete attribute")
+
+
+p = Person('Katrin')
+
+

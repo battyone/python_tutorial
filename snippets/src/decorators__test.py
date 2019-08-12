@@ -4,11 +4,9 @@ import time
 import functools
 
 # %%
-
-
 def deco(func):
     def inner():
-        print('running inner()')
+        print(func.__qualname__)
 
     return inner()
 
@@ -17,9 +15,6 @@ def deco(func):
 def target():
     print('running target()')
 
-
-# not working ???
-target
 
 # %%
 
@@ -60,8 +55,6 @@ def main():
 main()
 
 # %%
-
-
 def clock(func):
 
     # inner function which accepts any number of positional arguments
@@ -152,3 +145,31 @@ print(fibonacci_v2(6))
 # %%
 # fibonacci(1) is called one time!
 print(fibonacci_v3(6))
+
+
+#%%
+#  A decorator which takes parameters
+from functools import wraps, partial
+
+def debug(func=None, *, prefix=''):
+    # When using the prefix, func is None.
+    # This is a workaround around the problem.
+    if func is None:
+        return partial(debug, prefix=prefix)
+
+    msg = prefix + func.__qualname__
+
+    # wraps copies metadata for help(func), etc
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print(msg)
+        return func(*args, *kwargs)
+    return wrapper
+
+
+@debug(prefix='***')
+def add(x, y):
+    return x + y
+
+add(2,8)
+
