@@ -73,7 +73,7 @@ with open('zen.txt', encoding='utf-8') as fp:
             # occurences.append(loc)
             # index[word] = occurences
 
-            # Better to use setdefault
+            # Better to use setdefault -- ! even better to use would be defaultdict
             index.setdefault(word, []).append(loc)
 
 for word in sorted(index, key=str.upper):
@@ -181,8 +181,8 @@ def say_hello():
 def say_bye():
     print('bye')
 
+
 def bla():
-    
 
 
 d = {'a': say_hello, 'b': say_hello, 'c': lambda: print('lambda')}
@@ -205,8 +205,6 @@ print(a)
 
 # %%
 # order items in a dict
-from collections import OrderedDict
-import json
 
 d = OrderedDict()
 d['foo'] = 1
