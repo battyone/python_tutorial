@@ -1,8 +1,10 @@
-# %%
+#%%
 import re
 import reprlib
 
 from collections import Counter
+
+# %%
 
 RE_WORD = re.compile('\w+')
 
@@ -31,3 +33,5 @@ print(c)
 
 
 # %%
+m = re.search(r'\#(\d+)', 'Guard #10 begins shift')
+m.group(1)

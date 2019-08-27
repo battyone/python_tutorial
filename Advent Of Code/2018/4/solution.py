@@ -1,11 +1,35 @@
+
 # %%
 from datetime import *
 from collections import namedtuple
 from parse import parse
+import re
 
 Format = '%Y-%m-%d %H:%M'
 Line_Pattern = '[{}] {}'
 
+Nigthshift = namedtuple('Nigthshift', 'Date ID Asleep')
+
+
+def Create_Nightshift(a):
+    dt = (a[-1][0].month, a[-1][0].day)
+    ID = re.search(r'\#(\d+)', a[0][1]).group(1)
+
+    sleep = []
+
+    if len(a) > 1:
+        i = 1
+        while i < len(a):
+            asleep = a[i][0].minute
+            wakeup = a[i+1][0].minute
+            i += 2
+
+            sleep.extend(range(asleep, wakeup))
+
+    return Nigthshift(dt, ID, sleep)
+
+
+# %%
 # 1. Read input
 input = []
 with open('4/test.txt') as fp:
@@ -14,16 +38,7 @@ with open('4/test.txt') as fp:
         dt = datetime.strptime(s, Format)
         input.append((dt, r))
 
-Nigthshift = namedtuple('Nigthshift', 'Date ID Asleep')
-
-
-def Create_Nightshift(a):
-    dt = (a[-1][0].month, a[-1][0].day)
-    ID = parse('#{:d}', a[0][1])
-
-    return Nigthshift(dt, ID, [])
-
-
+# 2. Create an Excel like sheet where each row is one day with Guard ID
 Nigthshift_Array = []
 Sheet = []
 for line in sorted(input):
@@ -38,23 +53,3 @@ for line in sorted(input):
 
 print(*Sheet, sep='\n')
 
-# print(*(sorted(input))[:100], sep='\n')
-
-# 2. Sort input
-
-
-# s = '[1518-09-19 00:42] wakes up'
-# d1 = '1518-09-19 00:42'
-# d2 = '1518-08-03 00:57'
-
-
-# a = []
-
-# a.append(datetime.strptime(d1, Format))
-# a.append(datetime.strptime(d2, Format))
-
-# d = sorted(a)
-# c = sorted(a, reverse=True)
-
-# print(c)
-# print(d)
