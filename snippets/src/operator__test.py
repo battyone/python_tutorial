@@ -48,3 +48,8 @@ print(upcase(s))
 
 hiphenate = methodcaller('replace', ' ', '-')
 print(hiphenate(s))
+
+
+#%%
+d = {10:50, 20: 30}
+print(max(d.items(), key=itemgetter(1)))

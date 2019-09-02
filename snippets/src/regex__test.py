@@ -1,4 +1,5 @@
-#%%
+
+# %%
 import re
 import reprlib
 
@@ -35,3 +36,26 @@ print(c)
 # %%
 m = re.search(r'\#(\d+)', 'Guard #10 begins shift')
 m.group(1)
+
+# %%
+# copy all matches to list
+s1 = '[1518-11-01 00:00] Guard #10 begins shift'
+s2 = '[1518-11-01 00:05] falls asleep'
+# Pattern = r'(\[(.*)\].*?\#(\d+))|(\[(.*)\])'
+Pattern = r'\[(.*)\].*?\#(\d+)'
+print(re.findall(Pattern, s1))
+print(re.findall(Pattern, s2))
+
+# %%
+s1 = '[1518-11-01 00:00] Guard #10 begins shift'
+s2 = '[1518-11-01 00:05] falls asleep'
+
+dt = re.findall(r'\[(.*)\]', s1)
+ID = re.findall(r'\#(\d+)', s2)
+
+print(dt, ID)
+
+# %%
+# replace
+d = 'dabAcCaCBAcCcaDA'
+print(re.sub('cC', '', d))

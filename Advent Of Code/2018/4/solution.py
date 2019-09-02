@@ -1,55 +1,90 @@
 
 # %%
 from datetime import *
-from collections import namedtuple
-from parse import parse
+from operator import *
+from collections import namedtuple, Counter
 import re
 
 Format = '%Y-%m-%d %H:%M'
-Line_Pattern = '[{}] {}'
 
 Nigthshift = namedtuple('Nigthshift', 'Date ID Asleep')
 
-
-def Create_Nightshift(a):
-    dt = (a[-1][0].month, a[-1][0].day)
-    ID = re.search(r'\#(\d+)', a[0][1]).group(1)
-
-    sleep = []
-
-    if len(a) > 1:
-        i = 1
-        while i < len(a):
-            asleep = a[i][0].minute
-            wakeup = a[i+1][0].minute
-            i += 2
-
-            sleep.extend(range(asleep, wakeup))
-
-    return Nigthshift(dt, ID, sleep)
-
-
 # %%
+###############
 # 1. Read input
 input = []
-with open('4/test.txt') as fp:
+with open('4/input.txt') as fp:
     for _, line in enumerate(fp):
-        s, r = parse(Line_Pattern, line)
-        dt = datetime.strptime(s, Format)
-        input.append((dt, r))
+        # Extract datetime
+        dt = datetime.strptime(re.findall(r'^\[(.*)\]', line)[0], Format)
 
-# 2. Create an Excel like sheet where each row is one day with Guard ID
-Nigthshift_Array = []
-Sheet = []
-for line in sorted(input):
-    if 'Guard' in line[1]:
-        if(len(Nigthshift_Array) > 0):
-            Sheet.append(Create_Nightshift(Nigthshift_Array))
+        # Extract Guard ID if available
+        ID = -1
+        m = re.search(r'\#(\d+)', line)
+        if m:
+            ID = int(m.groups(1)[0])
 
-        Nigthshift_Array.clear()
-        Nigthshift_Array.append(line)
+        # Create object to keep all the information plus asleep or not
+        input.append(Nigthshift(dt, ID, 'asleep' in line))
+
+
+# print(*sorted(input)[:10], sep='\n')
+
+# %%
+
+########
+# 2.Sort and create a time table
+TimeTable = {}
+
+Current_ID = -1
+for i in sorted(input, key=lambda i: i.Date):
+    if i.ID >= 0:
+        Current_ID = i.ID
     else:
-        Nigthshift_Array.append(line)
+        key = (i.Date.month, i.Date.day, Current_ID)
+        TimeTable.setdefault(key, [])
+        TimeTable[key].append(i.Date.minute)
 
-print(*Sheet, sep='\n')
+# %%
+##################
+# 3. Do some stats
+Most_Asleep = {}
+Minute_Asleep = {}
+
+for k, v in TimeTable.items():
+
+    # the key is (month, day, ID)
+    ID = k[2]
+
+    Most_Asleep.setdefault(ID, int())
+    Minute_Asleep.setdefault(ID, Counter())
+    d = Minute_Asleep[ID]
+
+    for p in zip(v[::2], v[1::2]):
+        Most_Asleep[ID] = Most_Asleep[ID] + (p[1] - p[0])
+        d.update(range(p[0], p[1]))
+
+
+# print(Most_Asleep)
+# print(Minute_Asleep)
+# %%
+most_asleep_guard = max(Most_Asleep.items(), key=itemgetter(1))
+most_asleep_guard_id = most_asleep_guard[0]
+minute_asleep = Minute_Asleep[most_asleep_guard_id].most_common(1)[0]
+
+print(f'Guard {most_asleep_guard_id} slept {most_asleep_guard[1]} minutes.')
+print(f'He slept minute {minute_asleep[0]} {minute_asleep[1]} times.')
+
+print(f'Possible solution: {most_asleep_guard_id * minute_asleep[0]}')
+
+###########################
+# Part 2
+###########################
+#%%
+aa = [ (k, v.most_common(1)[0][0], v.most_common(1)[0][1]) for k,v in Minute_Asleep.items()]
+bb = sorted(aa, key=itemgetter(2), reverse=True)[0]
+
+print(f'Possible solution: {bb[0] * bb[1]}')
+
+
 
