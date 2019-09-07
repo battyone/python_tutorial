@@ -1,5 +1,3 @@
-
-
 # %%
 import json
 from collections import OrderedDict
@@ -22,6 +20,12 @@ print(hash(tt))
 tt = (1, 2, frozenset([30, 40]))
 print(tt)
 print(hash(tt))
+
+# %%
+# defaultdict
+dd = defaultdict(list)
+if not dd[1]:
+    print('empty')
 
 # %%
 a = dict(one=1, two=2, three=3)
