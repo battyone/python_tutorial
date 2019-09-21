@@ -1,23 +1,7 @@
 
 # %%
 from collections import deque, defaultdict
-
-
-def get_index(d, cv):
-    i = d.index(cv)
-    insert_at = i + 2
-
-    if insert_at >= len(d):
-        return insert_at - len(d)
-    else:
-        return insert_at
-
-
-def print_dequeue(d, cv, p):
-    s = ' '.join(str(x) for x in d)
-    s = s.replace(f' {cv}', f' ({cv})')
-
-    print(f'[{p}] ' + s)
+from operator import itemgetter
 
 
 def update_player(p, n):
@@ -30,35 +14,40 @@ def update_player(p, n):
 # %%
 
 
-num_players = 9
-player = 2
-
-scores = defaultdict(int)
-
 d = deque()
 d.append(0)
+d.append(2)
 d.append(1)
 
-cv = 1
+num_players = 447
+last_marble = 71510
+current_player = 3
+scores = defaultdict(int)
 
-for v in range(2, 24):
+current_value = 2
 
-    if v % 23 == 0:
-        # do something special
-        print('hello')
 
-        scores[player] += v
-        
-        i = get_index(d, cv)
-        to_be_removed = d[i]
-        n = 'str'
+for value in range(3, last_marble + 1):
 
-    
+    if value % 23 == 0:
+
+        to_be_removed_index = d.index(current_value) - 7
+        d.rotate(-to_be_removed_index)
+
+        scores[current_player] += value + d[0]
+        del d[0]
+        current_value = d[0]
+
     else:
-        d.insert(get_index(d, cv), v)
-        cv = v
+        d.rotate(-d.index(current_value))
+        d.insert(2, value)
+        current_value = value
 
-    d.rotate(-d.index(0))
+    current_player = update_player(current_player, num_players)
 
-    print_dequeue(d, v, player)
-    player = update_player(player, num_players)
+
+# not really necessary
+# d.rotate(-d.index(0))
+# s = ' '.join(str(x) for x in d)
+# print(s)
+print(max(scores.items(), key=itemgetter(1)))
