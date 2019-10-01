@@ -1,8 +1,5 @@
 # %%
-from itertools import islice
-
-
-def calc_power_level(coord, serial_no):
+def assign_fuel_cell_power(coord, serial_no):
     x, y = coord
 
     rack_id = x + 10
@@ -18,54 +15,56 @@ def calc_power_level(coord, serial_no):
     return hundred_digit - 5
 
 
-def my_sum(row, dim):
-    sums = []
+def calc_square_power(grid, coord, kernel_dim):
+    x, y = coord
 
-    for i in range(0, len(row)-dim):
-        sum = 0
-        for k in range(0, dim):
-            sum += row[i + k]
-        sums.append(sum)
+    pl = 0
+    for m in range(0, kernel_dim):
+        for n in range(0, kernel_dim):
+            pl += grid[y+m][x+n]
 
-    return sums
-
-
-def my_sum_2(row, dim):
-    sums = []
-
-    for i in range(0, len(row)-dim):
-        sums.append(sum(islice(row, i, i + dim + 1)))
-
-    return sums
+    return pl
 
 
 Grid_Serial_No = 5235
-Dim = 30
+Dim = 300
+Kernel = 3
 
-print(calc_power_level((3, 5), 8))
-print(calc_power_level((122, 79), 57))
-print(calc_power_level((217, 196), 39))
-print(calc_power_level((101, 153), 71))
+# Test
+# print(calc_power_level((3, 5), 8))
+# print(calc_power_level((122, 79), 57))
+# print(calc_power_level((217, 196), 39))
+# print(calc_power_level((101, 153), 71))
 
 # %%
 
-pl = []
+grid = []
 
 for y in range(1, Dim + 1):
     row = []
     for x in range(1, Dim + 1):
-        row.append(calc_power_level((x, y), Grid_Serial_No))
-    pl.append(row)
+        row.append(assign_fuel_cell_power((x, y), Grid_Serial_No))
+    grid.append(row)
 
+max_power_level = 0
+max_power_level_coord = ()
 
-# %%
-print(pl[0])
-print(sum(pl[0], 3))
-print(sum_2(pl[0], 3))
+for y in range(0, Dim - Kernel + 1):
+    for x in range(0, Dim - Kernel + 1):
+        pl = calc_square_power(grid, (x, y), Kernel)
 
-# %%
-l = [1, 2, 3]
-print(sum(l))
+        if pl > max_power_level:
+            max_power_level = pl
+            max_power_level_coord = (x+1, y+1)
 
+print(max_power_level)
+print(max_power_level_coord)
 
-# %%
+# for y in range(0, Dim - Kernel + 1):
+#     for x in range(0, Dim - Kernel + 1):
+#         indices = []
+#         for m in range(0, Kernel):
+#             for n in range(0, Kernel):
+#                 indices.append((x + n, y + m))
+#         Counter += 1
+#         print(Counter, indices)
