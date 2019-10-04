@@ -48,3 +48,10 @@ print(f'Hello World'.center(50, 'o', ))
 
 
 # %%
+r0 = ['a', 'b', 'c']
+r1 = ['d', 'e', 'f']
+rows = []
+rows.append(''.join(r0))
+rows.append(''.join(r1))
+
+print('\n'.join(rows))
