@@ -34,55 +34,63 @@ turn_car = {
     ('v', '/'): '<'
 }
 
-# do we need the car symbol? Maybe just position is enough?
 
-cars = {}
-cars[0] = {tracks[t]: t for t in tracks if tracks[t] in car_actions}
+class Car:
+    def __init__(self, pos, char):
+        self.pos = pos
+        self.char = char
+
+    def __repr__(self):
+        return f"'{self.char}' - {self.pos}"
+
+
+cars = [Car(k, v) for k, v in tracks.items() if v in car_actions]
 
 
 def print_track(t):
     for y in range(y0, y1 + 1):
-        l = []
+        line = []
         for x in range(x0, x1 + 1):
             pos = (x, y)
             if pos in tracks:
-                if pos in cars[t].values():
-                    bb = [k for k, v in cars[t].items() if v == pos]
-                    l.append(bb[0])
+                # any cars at this position?
+                c = [c for c in cars if c.pos == pos]
+                if len(c) > 0:
+                    line.append(c[0].char)
                 else:
-                    l.append(tracks[pos])
+                    line.append(tracks[pos])
             else:
-                l.append(' ')
-        print(''.join(l))
+                line.append(' ')
+        print(''.join(line))
     print('')
 
 
 print_track(0)
 
-time_steps = 3
-for t in range(1, time_steps):
-    print(t)
+# time_steps = 3
+# for t in range(1, time_steps):
+#     print(t)
 
-    cars[t] = {}
+#     cars[t] = {}
 
-    # for all coords find car and advance by one step
-    for y in range(y0, y1 + 1):
-        for x in range(x0, x1 + 1):
-            pos = (x, y)
-            if pos in tracks:
-                c = tracks[pos]
+#     # for all coords find car and advance by one step
+#     for y in range(y0, y1 + 1):
+#         for x in range(x0, x1 + 1):
+#             pos = (x, y)
+#             if pos in tracks:
+#                 c = tracks[pos]
 
-                if t == 2:
-                    pp = 9
+#                 if t == 2:
+#                     pp = 9
 
-                if c in cars[t-1] and cars[t-1][c] == pos:
-                    npos = tuple(map(operator.add, pos, car_actions[c]))
-                    npos_c = tracks[pos]
+#                 if c in cars[t-1] and cars[t-1][c] == pos:
+#                     npos = tuple(map(operator.add, pos, car_actions[c]))
+#                     npos_c = tracks[pos]
 
-                    if (c, npos_c) in turn_car:
-                        print('need to turn car')
-                        npos_c = c[(c, npos_c)]
+#                     if (c, npos_c) in turn_car:
+#                         print('need to turn car')
+#                         npos_c = c[(c, npos_c)]
 
-                    cars[t][npos_c] = npos
-    print(cars)
-    print_track(t)
+#                     cars[t][npos_c] = npos
+#     print(cars)
+#     print_track(t)
