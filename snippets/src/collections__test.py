@@ -4,8 +4,11 @@ from collections import Counter, defaultdict
 
 # %%
 c = Counter('AABBDD')
+print(c.most_common(1))
+
 c['a'] += 14
-c
+
+
 
 # %%
 # defaultdict for 1-to-many relationships, aka dict with lists as values
