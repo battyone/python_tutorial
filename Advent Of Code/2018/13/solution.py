@@ -1,53 +1,13 @@
-import operator
-
-tracks = {}
-
-car_actions = {
-    '<': (-1, 0),  # move car over x - 1
-    '>': (1, 0),  # move car over x + 1
-    '^': (0, -1),
-    'v': (0, 1)
-}
-
-
-with open('test.txt') as fp:
-    for y, l in enumerate(fp):
-        for x in range(0, len(l[:-1])):
-            c = l[x]
-            pos = (x, y)
-            if c != ' ':
-                tracks[pos] = c
-
-x0 = min(p[0] for p in tracks)
-x1 = max(p[0] for p in tracks)
-y0 = min(p[1] for p in tracks)
-y1 = max(p[1] for p in tracks)
-
-turn_car = {
-    ('>', '\\'): 'v',
-    ('<', '\\'): '^',
-    ('^', '\\'): '<',
-    ('v', '\\'): '>',
-    ('>', '/'): '^',
-    ('<', '/'): 'v',
-    ('^', '/'): '>',
-    ('v', '/'): '<'
-}
-
-
-class Car:
-    def __init__(self, pos, char):
-        self.pos = pos
-        self.char = char
-
-    def __repr__(self):
-        return f"'{self.char}' - {self.pos}"
-
-
-cars = [Car(k, v) for k, v in tracks.items() if v in car_actions]
-
+#%%
+from operator import add
+from collections import defaultdict
 
 def print_track(t):
+    x0 = min(p[0] for p in t)
+    x1 = max(p[0] for p in t)
+    y0 = min(p[1] for p in t)
+    y1 = max(p[1] for p in t)
+
     for y in range(y0, y1 + 1):
         line = []
         for x in range(x0, x1 + 1):
@@ -64,33 +24,104 @@ def print_track(t):
         print(''.join(line))
     print('')
 
+def read_input():
+    tracks = {}
 
-print_track(0)
+    with open('test.txt') as fp:
+        for y, l in enumerate(fp):
+            for x in range(0, len(l[:-1])):
+                c = l[x]
+                pos = (x, y)
+                if c != ' ':
+                    tracks[pos] = c
 
-# time_steps = 3
-# for t in range(1, time_steps):
-#     print(t)
+    return tracks
 
-#     cars[t] = {}
+tracks = read_input()
 
-#     # for all coords find car and advance by one step
-#     for y in range(y0, y1 + 1):
-#         for x in range(x0, x1 + 1):
-#             pos = (x, y)
-#             if pos in tracks:
-#                 c = tracks[pos]
+car_actions = {
+    '<': (-1, 0),  # move car over x - 1
+    '>': (1, 0),  # move car over x + 1
+    '^': (0, -1),
+    'v': (0, 1)
+}
 
-#                 if t == 2:
-#                     pp = 9
+turn_car = {
+    ('>', '\\'): 'v',
+    ('<', '\\'): '^',
+    ('^', '\\'): '<',
+    ('v', '\\'): '>',
+    ('>', '/'): '^',
+    ('<', '/'): 'v',
+    ('^', '/'): '>',
+    ('v', '/'): '<'
+}
 
-#                 if c in cars[t-1] and cars[t-1][c] == pos:
-#                     npos = tuple(map(operator.add, pos, car_actions[c]))
-#                     npos_c = tracks[pos]
 
-#                     if (c, npos_c) in turn_car:
-#                         print('need to turn car')
-#                         npos_c = c[(c, npos_c)]
+# key is modulo with 3
+intersection_turn = {
+    (0, '^') : '<',
+    (0, 'v') : '>',
+    (0, '>') : '^',
+    (0, '<') : 'v',
+    (1, '^') : '>',
+    (1, 'v') : 'v',
+    (1, '>') : '>',
+    (1, '<') : '<',
+    (2, '^') : '^',
+    (2, 'v') : '<',
+    (2, '>') : 'v',
+    (2, '<') : '^'
+}
 
-#                     cars[t][npos_c] = npos
-#     print(cars)
-#     print_track(t)
+
+class Car:
+    def __init__(self, pos, char):
+        self.pos = pos
+        self.char = char
+
+    def __repr__(self):
+        first = f"'{self.char}' - {self.pos}"
+        second = str(self.intersections)
+        return first + '---' + second
+
+    def add_intersections(self, intersections):
+        self.intersections = {i: 0 for i in intersections}
+
+    def turn_at_intersection(self, next_pos):
+        a = self.intersections[next_pos] % 3
+        self.char = intersection_turn[(a, self.char)]
+
+
+    def move(self, step, tracks):
+        print(step, ':')
+        
+        ca = car_actions[self.char]
+        next_pos = tuple(map(add, self.pos, ca))
+
+        if next_pos in self.intersections:
+            self.turn_at_intersection(next_pos)
+        elif (self.char, tracks[next_pos]) in turn_car:
+            print(' ' * 4, 'turning car')
+            self.char = turn_car[(self.char, tracks[next_pos])]
+        
+        self.pos = next_pos
+
+
+# find the cars on the tracks
+cars = [Car(k, v) for k, v in tracks.items() if v in car_actions]
+
+intersections = [k for k, v in tracks.items() if v == '+']
+
+for c in cars:
+    c.add_intersections(intersections)
+
+# print(cars[0])
+
+for i in range(6):
+    for car in cars:
+        car.move(i, tracks)
+        print_track(tracks)
+
+
+

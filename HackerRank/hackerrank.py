@@ -96,3 +96,21 @@ for i in range(len(s)):
     else:
         stusc += (len(s)-i)
 
+#%%
+s = 'Hello'
+d = ''.join(c.upper() if c.islower() else c.lower() for c in s)
+d
+
+
+#%%
+s = 'this is a string'
+'-'.join(s.split(' '))
+
+#%%
+s = 'AABCAAADA'
+k = 3
+p = len(s) // k
+for p in range(0,len(s),k):
+    print(s[p:p+k])
+    print(''.join(set(s[p:p+k])))
+

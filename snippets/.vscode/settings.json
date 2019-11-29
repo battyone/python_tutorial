@@ -1,7 +1,7 @@
 {
-  "python.pythonPath": "C:\\Users\\chhen\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+  "python.pythonPath": "D:\\zipline_test\\env37\\Scripts\\python.exe",
   "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "*_test.py"],
-  "python.testing.pyTestEnabled": false,
+  "python.testing.pytestEnabled": false,
   "python.testing.nosetestsEnabled": false,
   "python.testing.unittestEnabled": true
 }
