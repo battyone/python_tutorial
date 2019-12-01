@@ -44,6 +44,9 @@ cframe['os'] = np.where(cframe['a'].str.contains('Windows'),
                         'Windows', 'Not Windows')
 
 # %%
-cframe.os[:8]
+by_tz_os = cframe.groupby(['tz', 'os'])
+agg_counts = by_tz_os.size().unstack().fillna(0)
 
+indexer = agg_counts.sum(1).argsort()
+indexer[:10]
 # %%
