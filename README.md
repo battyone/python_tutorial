@@ -8,8 +8,6 @@ Going through various learning resources.
 
 https://github.com/qubitron/pydemo
 
-
-
 # Virtual environment
 
 ```
@@ -43,3 +41,36 @@ Ctrl+Shift O - browse functions, etc (open symbols)
 Ctrl+K U - Close Window
 
 Ctrl+Shift P - and type discover Python unit tests
+
+# Building a repository of code fragments
+
+Needs to be:
+
+- searchable
+- runable in place (in vscode)
+- ability to add pictures
+- version control
+
+folder structure
+
+- algorithms
+- data
+- integration
+  - nginx, wsgi
+- python
+  - basic
+  - pythonic
+  - generators
+  - async
+  - modules
+    - collections
+    - itertools
+    - os
+    - unittest
+  - external modules
+    - numpy
+    - pandas
+    - matplotlib
+    - requests
+    - sqlalchemy
+    - zipfile
